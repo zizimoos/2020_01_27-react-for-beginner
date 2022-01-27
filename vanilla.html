@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <span>Total Clicks : 0</span>
+    <button id="add">Click me</button>
+  </body>
+  <script>
+    const addButton = document.getElementById("add");
+    const display = document.querySelector("span");
+    let clicks = 0;
+    addButton.addEventListener("click", () => {
+      clicks++;
+      display.textContent = `Total Clicks : ${clicks}`;
+    });
+  </script>
+</html>
