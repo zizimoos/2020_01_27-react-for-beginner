@@ -14,6 +14,12 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script>
     let clicks = 0;
+    function handleClick() {
+      console.log("clicked");
+      clicks++;
+      console.log(clicks);
+      ReactDOM.render(App, root);
+    }
     const span = React.createElement(
       "span",
       {
@@ -23,19 +29,14 @@
           console.log("mouse enter");
         },
       },
-      "Total Clicks : 0"
+      `Total Clicks : ${clicks}`
     );
     const addButton = React.createElement(
       "button",
       {
         id: "add",
         style: { color: "blue" },
-        onClick: () => {
-          console.log("clicked");
-          clicks++;
-          console.log(clicks);
-          span.textContent = `Total Clicks : ${clicks}`;
-        },
+        onClick: handleClick,
       },
       "Click me"
     );

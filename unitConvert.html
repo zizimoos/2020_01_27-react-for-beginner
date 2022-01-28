@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    //////////////////////////////////////////////
+    const BasicConvert = () => {
+      const [input, setInput] = React.useState("");
+      const [output, setOutput] = React.useState("");
+      const [toggle, setToggle] = React.useState(false);
+
+      const convertMinuteToSecond = (e) => {
+        e.preventDefault();
+        setOutput(e.target[0].value * 60);
+      };
+      const convertSecondToMinute = (e) => {
+        e.preventDefault();
+        setOutput(e.target[0].value / 60);
+      };
+
+      const toggleFunction = () => {
+        setToggle((prev) => !prev);
+        setOutput(0);
+      };
+
+      return (
+        <div>
+          <h3>Super Converter 1</h3>
+          <button onClick={toggleFunction}>
+            {toggle ? "MinuteToSecond" : "SecondToMinute"}
+          </button>
+          <form
+            onSubmit={toggle ? convertMinuteToSecond : convertSecondToMinute}
+          >
+            <label htmlFor="input">
+              {toggle ? "minutes : " : "seconds : "}
+            </label>
+            <input id="input" type="text" placeholder="input"></input>
+            <span> to </span>
+            <label htmlFor="output">
+              {!toggle ? "minutes : " : "seconds : "}
+            </label>
+            <input
+              id="output"
+              type="text"
+              placeholder="output"
+              value={output}
+              readOnly
+              disable="true"
+            ></input>
+            <button>{"convert"}</button>
+          </form>
+        </div>
+      );
+    };
+    const SecondToMinute = () => {
+      const [minute, setMinute] = React.useState(0);
+      const [second, setSecond] = React.useState(0);
+
+      const onChangeSecondToMinuet = (e) => {
+        setSecond(e.currentTarget.value);
+        setMinute(e.currentTarget.value / 60);
+      };
+      const onChangeMinuteToSecond = (e) => {
+        setMinute(e.currentTarget.value);
+        setSecond(e.currentTarget.value * 60);
+      };
+      const clickReset = () => {
+        setMinute(0);
+        setSecond(0);
+      };
+
+      return (
+        <div>
+          <div>
+            <label htmlFor="second">second : </label>
+            <input
+              placeholder="seconds"
+              id="second"
+              type="number"
+              value={second}
+              onChange={onChangeSecondToMinuet}
+            ></input>
+            <label htmlFor="minute">minute : </label>
+            <input
+              placeholder="minutes"
+              id="minute"
+              type="number"
+              value={minute}
+              onChange={onChangeMinuteToSecond}
+            ></input>
+            <button onClick={clickReset}>Reset</button>
+          </div>
+        </div>
+      );
+    };
+    const MetersToKilometer = () => {
+      const [minute, setMinute] = React.useState(0);
+      const [second, setSecond] = React.useState(0);
+
+      const onChangeSecondToMinuet = (e) => {
+        setSecond(e.currentTarget.value);
+        setMinute(e.currentTarget.value / 1000);
+      };
+      const onChangeMinuteToSecond = (e) => {
+        setMinute(e.currentTarget.value);
+        setSecond(e.currentTarget.value * 1000);
+      };
+      const clickReset = () => {
+        setMinute(0);
+        setSecond(0);
+      };
+
+      return (
+        <div>
+          <div>
+            <label htmlFor="second">meters : </label>
+            <input
+              placeholder="seconds"
+              id="second"
+              type="number"
+              value={second}
+              onChange={onChangeSecondToMinuet}
+            ></input>
+            <label htmlFor="minute">kilometers : </label>
+            <input
+              placeholder="minutes"
+              id="minute"
+              type="number"
+              value={minute}
+              onChange={onChangeMinuteToSecond}
+            ></input>
+            <button onClick={clickReset}>Reset</button>
+          </div>
+        </div>
+      );
+    };
+
+    const App = () => {
+      const [select, setSelect] = React.useState("0");
+      const selectOption = (e) => {
+        setSelect(e.currentTarget.value);
+      };
+      return (
+        <div>
+          <BasicConvert />
+          <h3>Super Converter 2</h3>
+          <label htmlFor="select">select : </label>
+          <select id="select" value={select} onChange={selectOption}>
+            <option value="0">SelectYourUnits</option>
+            <option value="1">SecondToMinute</option>
+            <option value="2">MeterToKilometer</option>
+          </select>
+          {(select === "1" && <SecondToMinute />) ||
+            (select === "2" && <MetersToKilometer />) ||
+            (select === "0" && <div>Select Your Units</div>)}
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, root);
+  </script>
+</html>
